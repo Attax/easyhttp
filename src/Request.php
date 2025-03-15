@@ -1,6 +1,6 @@
 <?php
 
-namespace yzh52521\EasyHttp;
+namespace attax\EasyHttp;
 
 use GuzzleHttp\Handler\CurlHandler;
 use GuzzleHttp\HandlerStack;
@@ -13,17 +13,17 @@ use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ConnectException;
 
 /**
- * @method \yzh52521\EasyHttp\Response body()
- * @method \yzh52521\EasyHttp\Response array()
- * @method \yzh52521\EasyHttp\Response json()
- * @method \yzh52521\EasyHttp\Response headers()
- * @method \yzh52521\EasyHttp\Response header(string $header)
- * @method \yzh52521\EasyHttp\Response status()
- * @method \yzh52521\EasyHttp\Response successful()
- * @method \yzh52521\EasyHttp\Response ok()
- * @method \yzh52521\EasyHttp\Response redirect()
- * @method \yzh52521\EasyHttp\Response clientError()
- * @method \yzh52521\EasyHttp\Response serverError()
+ * @method \attax\EasyHttp\Response body()
+ * @method \attax\EasyHttp\Response array()
+ * @method \attax\EasyHttp\Response json()
+ * @method \attax\EasyHttp\Response headers()
+ * @method \attax\EasyHttp\Response header(string $header)
+ * @method \attax\EasyHttp\Response status()
+ * @method \attax\EasyHttp\Response successful()
+ * @method \attax\EasyHttp\Response ok()
+ * @method \attax\EasyHttp\Response redirect()
+ * @method \attax\EasyHttp\Response clientError()
+ * @method \attax\EasyHttp\Response serverError()
  */
 class Request
 {
@@ -141,7 +141,7 @@ class Request
         return $this;
     }
 
-    public function asMultipart(string $name, string $contents, string $filename = null, array $headers = [])
+    public function asMultipart(string $name, string $contents, ?string $filename = null, array $headers = [])
     {
         $this->bodyFormat = 'multipart';
 
@@ -412,7 +412,7 @@ class Request
         return $this;
     }
 
-    public function attach(string $name, string $contents, string $filename = null, array $headers = [])
+    public function attach(string $name, string $contents, ?string $filename = null, array $headers = [])
     {
         $this->options['multipart'] = array_filter([
             'name'     => $name,
@@ -477,56 +477,56 @@ class Request
         return $this->request('OPTIONS', $url, $data);
     }
 
-    public function getAsync(string $url, $query = null, callable $success = null, callable $fail = null)
+    public function getAsync(string $url, $query = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($query) || $this->options['query'] = $query;
 
         return $this->requestAsync('GET', $url, $query, $success, $fail);
     }
 
-    public function postAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function postAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('POST', $url, $data, $success, $fail);
     }
 
-    public function patchAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function patchAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('PATCH', $url, $data, $success, $fail);
     }
 
-    public function putAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function putAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('PUT', $url, $data, $success, $fail);
     }
 
-    public function deleteAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function deleteAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('DELETE', $url, $data, $success, $fail);
     }
 
-    public function headAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function headAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('HEAD', $url, $data, $success, $fail);
     }
 
-    public function optionsAsync(string $url, $data = null, callable $success = null, callable $fail = null)
+    public function optionsAsync(string $url, $data = null, ?callable $success = null, ?callable $fail = null)
     {
         is_callable($data) || $this->options[$this->bodyFormat] = $data;
 
         return $this->requestAsync('OPTIONS', $url, $data, $success, $fail);
     }
 
-    public function multiAsync(array $promises, callable $success = null, callable $fail = null)
+    public function multiAsync(array $promises, ?callable $success = null, ?callable $fail = null)
     {
         $count = count($promises);
 
@@ -643,7 +643,7 @@ class Request
     }
 
 
-    protected function requestAsync(string $method, string $url, $options = null, callable $success = null, callable $fail = null)
+    protected function requestAsync(string $method, string $url, $options = null, ?callable $success = null, ?callable $fail = null)
     {
         if (is_callable($options)) {
             $successCallback = $options;

@@ -4,9 +4,9 @@ EasyHttp 是一个轻量级、语义化、对IDE友好的HTTP客户端，支持�
 
 如果您觉得EasyHttp对您有用的话，别忘了给点个赞哦^_^ ！
 
-github:[github.com/yzh52521/easyhttp](https://github.com/yzh52521/easyhttp "github.com/yzh52521/easyhttp")
+github:[github.com/attax/easyhttp](https://github.com/attax/easyhttp "github.com/attax/easyhttp")
 
-gitee:[gitee.com/yzh52521/easyhttp](https://gitee.com/yzh52521/easyhttp "gitee.com/yzh52521/easyhttp")
+gitee:[gitee.com/attax/easyhttp](https://gitee.com/attax/easyhttp "gitee.com/attax/easyhttp")
 
 本包是基于 [ gouguoyin/easyhttp ](https://gitee.com/gouguoyin/easyhttp "gitee.com/gouguoyin/easyhttp") 进行扩展开发，主要实现了以下扩展：
 
@@ -24,13 +24,13 @@ gitee:[gitee.com/yzh52521/easyhttp](https://gitee.com/yzh52521/easyhttp "gitee.c
 
 #### 环境依赖
 
-- PHP >= 7.2.5
+- PHP >= 8.0
 - 如果使用PHP流处理，allow_url_fopen 必须在php.ini中启用。
 - 如果使用cURL处理，cURL >= 7.19.4，并且编译了OpenSSL 与 zlib。
 
 #### 一键安装
 
-    composer require yzh52521/easyhttp
+    composer require attax/easyhttp
 
 ## 发起请求
 
@@ -41,13 +41,13 @@ gitee:[gitee.com/yzh52521/easyhttp](https://gitee.com/yzh52521/easyhttp "gitee.c
 ```php
 $response = Http::get('http://httpbin.org/get');
 
-$response = Http::get('http://httpbin.org/get?name=yzh52521');
+$response = Http::get('http://httpbin.org/get?name=attax');
 
-$response = Http::get('http://httpbin.org/get?name=yzh52521', ['age' => 18]);
+$response = Http::get('http://httpbin.org/get?name=attax', ['age' => 18]);
 
 $response = Http::post('http://httpbin.org/post');
 
-$response = Http::post('http://httpbin.org/post', ['name' => 'yzh52521']);
+$response = Http::post('http://httpbin.org/post', ['name' => 'attax']);
 
 $response = Http::patch(...);
 
@@ -64,8 +64,8 @@ $response = Http::options(...);
 ###### 指定服务端base_url的请求
 
 ```php
-// 指定服务端base_url地址,最终请求地址为 https://serv.yzh52521.com/login
-$response = Http::withHost('https://serv.yzh52521.com')->post('/login');
+// 指定服务端base_url地址,最终请求地址为 https://serv.attax.com/login
+$response = Http::withHost('https://serv.attax.com')->post('/login');
 
 ```
 ##### 发送原始数据（Raw）请求
@@ -109,7 +109,7 @@ $response = Http::attach(
 
 ```php
 $response = Http::withHeaders([
-    'x-powered-by' => 'yzh52521'
+    'x-powered-by' => 'attax'
 ])->post(...);
 ```
 
@@ -188,7 +188,7 @@ $response = Http::withProxy('tcp://localhost:8125')->post(...);
 $response = Http::withProxy([
     'http'  => 'tcp://localhost:8125', // Use this proxy with "http"
     'https' => 'tcp://localhost:9124', // Use this proxy with "https",
-    'no'    => ['.com.cn', 'yzh52521.cn'] // Don't use a proxy with these
+    'no'    => ['.com.cn', 'attax.cn'] // Don't use a proxy with these
 ])->post(...);
 ```
 
@@ -261,10 +261,10 @@ $response = Http::withResponseMiddleware(
 #### 异步请求
 
 ```php
-use yzh52521\EasyHttp\Response;
-use yzh52521\EasyHttp\RequestException;
+use attax\EasyHttp\Response;
+use attax\EasyHttp\RequestException;
 
-$promise = Http::getAsync('http://easyhttp.yzh52521.cn/api/sleep3.json', ['token' => TOKEN], function (Response $response) {
+$promise = Http::getAsync('http://easyhttp.attax.cn/api/sleep3.json', ['token' => TOKEN], function (Response $response) {
     echo '异步请求成功，响应内容：' . $response->body() . PHP_EOL;
 }, function (RequestException $e) {
     echo '异步请求异常，错误码：' . $e->getCode() . '，错误信息：' . $e->getMessage() . PHP_EOL;
@@ -277,7 +277,7 @@ echo json_encode(['code' => 200, 'msg' => '请求成功'], JSON_UNESCAPED_UNICOD
 {"code":200,"msg":"请求成功"}
 异步请求成功，响应内容：{"code":200,"msg":"success","second":3}
 
-$promise = Http::getAsync('http1://easyhttp.yzh52521.cn/api/sleep3.json', function (Response $response) {
+$promise = Http::getAsync('http1://easyhttp.attax.cn/api/sleep3.json', function (Response $response) {
     echo '异步请求成功，响应内容：' . $response->body() . PHP_EOL;
 }, function (RequestException $e) {
     echo '异步请求异常，错误信息：' . $e->getMessage() . PHP_EOL;
@@ -309,13 +309,13 @@ Http::wait();
 #### 异步并发请求
 
 ```php
-use yzh52521\EasyHttp\Response;
-use yzh52521\EasyHttp\RequestException;
+use attax\EasyHttp\Response;
+use attax\EasyHttp\RequestException;
 
 $promises = [
-    Http::getAsync('http://easyhttp.yzh52521.cn/api/sleep3.json'),
-    Http::getAsync('http1://easyhttp.yzh52521.cn/api/sleep1.json', ['name' => 'yzh52521']),
-    Http::postAsync('http://easyhttp.yzh52521.cn/api/sleep2.json', ['name' => 'yzh52521']),
+    Http::getAsync('http://easyhttp.attax.cn/api/sleep3.json'),
+    Http::getAsync('http1://easyhttp.attax.cn/api/sleep1.json', ['name' => 'attax']),
+    Http::postAsync('http://easyhttp.attax.cn/api/sleep2.json', ['name' => 'attax']),
 ];
 
 $pool=Http::concurrency(10)->multiAsync($promises, function (Response $response, $index) {
@@ -336,7 +336,7 @@ $promise->wait();
 
 ## 使用响应
 
-发起请求后会返回一个 yzh52521\EasyHttp\Response $response的实例，该实例提供了以下方法来检查请求的响应：
+发起请求后会返回一个 attax\EasyHttp\Response $response的实例，该实例提供了以下方法来检查请求的响应：
 
 ```php
 $response->body() : string;
@@ -353,7 +353,7 @@ $response->header($header) : string;
 
 ## 异常处理
 
-请求在发生客户端或服务端错误时会抛出 yzh52521\EasyHttp\RequestException $e异常，该实例提供了以下方法来返回异常信息：
+请求在发生客户端或服务端错误时会抛出 attax\EasyHttp\RequestException $e异常，该实例提供了以下方法来返回异常信息：
 
 ```php
 $e->getCode() : int;
