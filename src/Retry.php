@@ -1,6 +1,6 @@
 <?php
 
-namespace yzh52521\EasyHttp;
+namespace attax\EasyHttp;
 
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Request;

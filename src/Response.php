@@ -1,6 +1,6 @@
 <?php
 
-namespace yzh52521\EasyHttp;
+namespace attax\EasyHttp;
 
 use ArrayAccess;
 use LogicException;
