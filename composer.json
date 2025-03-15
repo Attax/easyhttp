@@ -28,6 +28,5 @@
         "psr-4": {
             "attax\\EasyHttp\\": "src/"
         }
-    },
-    "minimum-stability": "stable"
+    }
 }
